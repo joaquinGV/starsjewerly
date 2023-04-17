@@ -169,7 +169,7 @@ function juego2() {
         1
       )
     );
-  } while (repetir == 1 && !isNaN(repetir));
+  } while (repetir == 1 || isNaN(repetir));
 }
 
 //Generador de numero aleatorio entre 0.5 y 3.499
