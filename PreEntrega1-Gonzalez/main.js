@@ -176,7 +176,7 @@ function juego2() {
 function generarNumeroAleatorio() {
   const numeroAleatorio = Math.random() * 2.9999 + 0.5; // genera un número aleatorio entre 0.5 y 3.4999
   console.log(numeroAleatorio);
-  const numeroRedondeado = Math.round(numeroAleatorio, 1); // redondea el número a 2 decimales
+  const numeroRedondeado = Math.round(numeroAleatorio, 1); // redondea el número sin decimales
   console.log(numeroRedondeado);
   return parseInt(numeroRedondeado);
 }
