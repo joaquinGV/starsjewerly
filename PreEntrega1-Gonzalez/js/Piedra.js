@@ -3,6 +3,7 @@
 //Definicion de variables globales (no necesariamente globales)
 let jugador1, jugador2, compu, tipoJuego, eleccion, puntuacion, elec;
 
+function Piedra() {
 do {
   do {
     elec = prompt(
@@ -33,7 +34,7 @@ do {
       alert("Eleccion diferente , Intente con otra porfavor");
       continue;
   }
-} while (eleccion != 3);
+} while (eleccion != 3);}
 
 // Juego 1 modo de 2 jugadores
 function juego1() {
@@ -180,3 +181,5 @@ function generarNumeroAleatorio() {
   console.log(numeroRedondeado);
   return parseInt(numeroRedondeado);
 }
+
+export default Pieda();
