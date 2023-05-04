@@ -1,18 +1,89 @@
 // Codigo Ejemplo con modo carrito
 
-import { Joyas, listajoyas } from "./joyas.js";
+import { listajoyas } from "./joyas.js";
+import { mostrarProducto } from "./mostrarProductos.js";
 
-function MSJ2(lista) {
-  let msj = "";
-  let id = 1;
-  for (let index = 0; index < lista.length; index++) {
-    msj =
-      msj +
-      `${id} - ${lista[index].nombre} | Precio: ${lista[index].precio} | Cantidad disponible: ${lista[index].inventario} \n`;
-    id++;
+let carrito = [];
+
+export function Inicio() {
+  let eleccion = parseInt(
+    prompt(
+      "Que accion desea realizar a su carrito? \n 1.- Agregar Productos. \n 2.- Eliminar Productos. \n  3.- Vaciar Carrito."
+    )
+  );
+
+  switch (eleccion) {
+    case 1:
+      agregarProducto();
+      console.log(carrito)
+      return carrito
+      break;
+    case 2:
+      eliminarProducto();
+
+      break;
+    case 3:
+      agregarProducto();
+
+      break;
+    default:
+      alert("Elija una opcion correcta");
+      break;
   }
-  return msj;
 }
+
+function agregarProducto() {
+  alert(
+    "Elija el producto que le interese agregar o cancelar en caso contrario"
+  );
+  let objeto = mostrarProducto();
+  console.log(objeto);
+  // Busca si el objeto existe dentro del carrito
+  const index = carrito.findIndex((item) => item.nombre === objeto.nombre);
+  if (index === -1) {
+    // Si el producto no existe en el carrito, lo agrega con la cantidad especificada
+    carrito.push(objeto);
+  } else {
+    // Si el producto ya existe en el carrito, modifica su cantidad
+    carrito[index].cantidad += objeto.cantidad;
+  }
+
+  console.log(carrito);
+
+}
+
+//   console.log(carrito);
+//   if (carrito.length == 0) {
+//     carrito.push(objeto);
+//     console.log(carrito);
+//   } else if (objeto == null) {
+//     Inicio();
+//   } else {
+//     let index = carrito.nombre.indexOf(objeto.nombre);
+//     if (index != -1) {
+//       carrito.push(objeto);
+//     } else {
+//       carrito[index].inventario += 1;
+//     }
+//   }
+// }
+
+// const index = carrito.findIndex(item => item.nombre === producto.nombre);
+
+// if (index === -1) {
+//   // Si el producto no existe en el carrito, lo agrega con la cantidad especificada
+//   carrito.push({ ...producto, cantidad });
+// } else {
+//   // Si el producto ya existe en el carrito, modifica su cantidad
+//   carrito[index].cantidad += cantidad;
+// }
+
+// console.log(carrito);
+// }
+
+function eliminarProductos() {}
+
+function vaciarCarrito() {}
 
 function MSJ(cate) {
   let msj2 = "";
@@ -22,49 +93,4 @@ function MSJ(cate) {
     id++;
   }
   return msj2;
-}
-
-function Categorias() {
-  const tienda = listajoyas;
-  console.log(tienda);
-  let cat = [String(tienda[0].clasificacion)];
-  for (let i = 0; i < tienda.length; i++) {
-    if (!cat.includes(tienda[i].clasificacion)) {
-      cat.push(tienda[i].clasificacion);
-    }
-  }
-  return cat;
-}
-
-function filtrarCategoria(categoria) {
-  let joyas = listajoyas; // lista importada
-  let pulseras = [];
-  for (let i = 0; i < joyas.length; i++) {
-    if (joyas[i].clasificacion == categoria) {
-      pulseras.push(joyas[i]);
-    }
-  }
-  return pulseras;
-}
-
-export function Carrito() {
-  const tienda = listajoyas;
-
-  let categorias = Categorias();
-  let msj2 = MSJ(categorias);
-  let msj = `Seleccione la categoria deseada: \n${msj2}`;
-
-  let result = "";
-  let eleccion = prompt(msj);
-  switch (true) {
-    case eleccion >= 1 && eleccion <= 4:
-      let lista = filtrarCategoria(categorias[eleccion - 1]);
-      alert(MSJ2(lista));
-
-      break;
-
-    default:
-      console.log("Error, dato incorrecto");
-      break;
-  }
 }
