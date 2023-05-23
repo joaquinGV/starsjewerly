@@ -1,0 +1,152 @@
+
+// Pagina Cita
+.cita-main{
+    h2{
+    font-size: 2.5em;
+    justify-content: center;
+    text-align: center;
+    padding-top: 20px;
+    }
+    section{
+        padding:20px;
+        border: 5px solid antiquewhite;
+        margin: 3%;
+        margin-top: 1%;
+        overflow: hidden;
+        justify-content: space-between;
+    }
+    .forms{
+        font-size: 1.2em;
+    }
+    .formulario-1, .formulario-2{
+        padding: 15px;
+        border: #666 solid 5px;
+    }
+    .cat1{
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    h3{
+        display: block;
+    }
+    .cat1__categoria{
+        width: 40%;
+    }
+    select:not(:valid){
+        color:gray;
+    }
+    option{
+        color:black
+    }
+    .cat3-horarios{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: space-around;
+        h3{
+            width: 100%;
+        }
+    }
+    .r-button{
+        flex-wrap: wrap;
+        margin: 4px;
+        width: 100px;
+        height: 40px;
+        position: relative; 
+        label, input {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: black 3px solid;
+        }
+        input[type="radio"] {
+            opacity: 0.011;
+            z-index: 100;
+        }
+        input[type="radio"]:checked + label{
+            background: #20b8be !important;
+            border-radius: 4px;
+        }
+        label {
+            cursor: pointer;
+            z-index: 90;
+            line-height: 1.5em;
+        }
+
+    }
+
+    .formulario-2{
+        .f2-parte1{
+            justify-content: space-around;
+            margin-bottom: 15px;
+            button{
+                padding: 4px;
+                font-weight: bold;
+                transform: scale(1);
+                transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s;
+            }
+        }
+        .f2-parte2{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 0px 0px 5px 15px;
+            justify-content:space-between;
+            margin-right: 10%;
+            input{
+                float: inline-end;  
+                width: 45%;
+                text-align: center;
+                font-size: 16px;
+            } 
+        }
+        label{
+            float: inline-start;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+        .f2-parte3{
+            margin: 15px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            button{
+                margin-top: 15px;
+                padding:5px;
+                font-weight: bold;
+                font-size: 1em;
+                transform: scale(1);
+                transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s;
+            }
+        }
+    }
+    .resumen{
+        justify-content: center;
+        text-align: center;
+        .r-block{
+            margin: 25px 25% 0 25%;
+            padding: 10px;
+            border: #666 solid 5px;
+        }
+        .r-titulo{
+            font-size: 1.2em;
+            border-bottom: 2px dashed #8C2641;
+        }
+        .r-content{
+            border-bottom: 2px dashed #8C2641;
+        }
+        button{
+            margin-top: 10px;
+            padding:5px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transform: scale(1);
+            transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s;
+        }        
+    }
+}

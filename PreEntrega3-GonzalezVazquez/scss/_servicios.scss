@@ -1,0 +1,51 @@
+
+// Pagina Servicios
+.uñas{
+    display: block;
+    padding:20px;
+    border: 5px solid antiquewhite;
+    margin: 3%;
+    overflow: hidden;
+    .uñas__header{
+        display: flex;
+        flex-direction: row;
+        padding: 0 15px;
+        font-size: 2em;
+        width: auto; 
+        margin: 15px;   
+        justify-content: left;
+    }
+    .uñas__header h2{
+        margin-right: 20px;
+    }
+    .uñas__contenido__servicios{
+        font-size: 1.2em ; 
+        .datos{
+            list-style-image: url(./play-solid.svg);
+            padding: 15px;
+            padding-left: 25px;
+            margin-bottom: 20px;
+            border: #666 3px solid;
+        }
+        .proceso{
+            padding: 15px;
+            border: #666 3px solid;
+            p{
+                margin: 20px 0px 20px 0px;
+            }
+        }
+    }
+    .uñas__contenido__imagen{
+        padding-top: 15px;
+        margin: auto;
+        width: 550px;
+        height: 550px;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+}
+
+

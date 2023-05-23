@@ -1,0 +1,54 @@
+
+
+// Ofertas pagina
+#grid__main{
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "amigas . oferta__img"
+    "amigas mes oferta__img"
+    "contacto mes temporada"
+    "contacto . temporada";
+    border: 5px solid antiquewhite;
+    margin: 3% 3% 3% 3%;
+    padding: 15px;
+    gap:25px;
+    align-content: center;
+    justify-content: center;
+    .p-amigas{
+        grid-area: amigas;
+    }
+    .p-mes{
+        grid-area: mes;
+    }
+    
+    .p-temporada{
+        grid-area: temporada;
+    }
+    
+    .contacto{
+        grid-area: contacto;
+    }
+    .oferta__img{
+        grid-area: oferta__img;
+        width: 100%;
+        height: 100%;
+    
+    }
+    .promo,
+    .contacto{
+        border: 5px solid #666;
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        align-content: center !important;
+        justify-content: center !important;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+}

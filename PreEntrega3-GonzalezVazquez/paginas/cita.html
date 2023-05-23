@@ -1,0 +1,305 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Proceso para agendar cita en Yiyi Nails"
+    />
+    <meta
+      name="keywords"
+      content="Agendar cita, Cliente nuevo, ya tengo cuenta, registrarse, resumen de cita, horarios"
+    />
+    <link rel="icon" type="image/x-icon" href="../imagenes/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>YN Agendar Cita</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-2" href="#">
+            <img
+              src="../imagenes/inicio-3.jpg"
+              alt="Logo"
+              width="80"
+              height="60"
+              class="d-inline-block align-text"
+            />
+            Yiyi Nails
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./servicios.html">Servicios</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="./cita.html"
+                  >Agendar Cita</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./galeria.html">Galería</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./ofertas.html">Ofertas</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="cita-main container-fluid">
+      <h2>Agendar Cita</h2>
+      <section class="row">
+        <div class="forms col-12 col-md-6">
+          <form action="" class="formulario-1">
+            <div class="cat1">
+              <div class="cat1__categoria">
+                <h3>Categoria:</h3>
+                <input
+                  type="radio"
+                  name="categoria"
+                  value="Manos"
+                  id="Manos"
+                  checked
+                />
+                <label for="Manos">Manos</label>
+                <br />
+                <input type="radio" name="categoria" value="Pies" id="Pies" />
+                <label for="Pies">Pies</label>
+                <br />
+                <input
+                  type="radio"
+                  name="categoria"
+                  value="Paquete"
+                  id="Paquete"
+                  disabled
+                />
+                <label for="Paquete">Paquete</label>
+                <br />
+                <input
+                  type="radio"
+                  name="categoria"
+                  value="Oferta"
+                  id="Oferta"
+                />
+                <label for="Oferta">Oferta</label>
+                <br />
+              </div>
+              <div class="cat1__servicio">
+                <h3>Selecciona un Servicio:</h3>
+                <select id="servicio" name="servicio" required>
+                  <option value="" disabled selected hidden>
+                    Seleccionar Servicio
+                  </option>
+                  <option value="Corte de Uñas">Corte de uñas</option>
+                  <option value="Esmaltado de Uñas">Esmaltado de Uñas</option>
+                  <option value="Manicure Express">Manicure Express</option>
+                  <option value="Manicure Ruso">Manicure Ruso</option>
+                  <option value="Manicure en Seco">Manicure en Seco</option>
+                  <option value="Manicure Spa">Manicure Spa</option>
+                  <option value="Gel Color">Gel Color</option>
+                  <option value="Uñas Acrilico">Uñas Acrilico</option>
+                  <option value="Dipping con Tip">Dipping con Tip</option>
+                  <option value="Uñas Esculturales">Uñas Esculturales</option>
+                  <option value="Retoque de Uñas">Retoque de Uñas</option>
+                  <option value="Efectos">Efectos</option>
+                  <option value="Decorados">Decorados</option>
+                </select>
+              </div>
+            </div>
+            <div class="cat2-fecha">
+              <h3 for="fecha">Seleccionar fecha:</h3>
+              <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                value="2023-01-28"
+                required
+              />
+            </div>
+            <div id="horarios-disponibles" class="cat3-horarios">
+              <!-- <h3 for="horario">Selecciona un horario:</h3>
+              <div id="horarios-disponibles"></div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="8:00am"
+                  id="8:00am"
+                  checked
+                />
+                <label for="8:00am">8:00am</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="9:00am"
+                  id="9:00am"
+                />
+                <label for="9:00am">9:00am</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="10:00am"
+                  id="10:00am"
+                />
+                <label for="10:00am">10:00am</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="11:00am"
+                  id="11:00am"
+                />
+                <label for="11:00am">11:00am</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="12:00pm"
+                  id="12:00pm"
+                />
+                <label for="12:00pm">12:00pm</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="1:00pm"
+                  id="1:00pm"
+                />
+                <label for="1:00pm">1:00pm</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="2:00pm"
+                  id="2:00pm"
+                />
+                <label for="2:00pm">2:00pm</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="3:00pm"
+                  id="3:00pm"
+                />
+                <label for="3:00pm">3:00pm</label>
+              </div>
+              <div class="r-button">
+                <input
+                  type="radio"
+                  name="Horarios"
+                  value="4:00pm"
+                  id="4:00pm"
+                />
+                <label for="4:00pm">4:00pm</label>
+              </div> -->
+            </div>
+          </form>
+        </div>
+        <div class="forms col-12 col-md-6">
+          <form action="" class="formulario-2">
+            <div class="f2-parte1 row">
+              <h3 class="col-10 col-md-6">Cliente Nuevo</h3>
+              <button class="col-10 col-md-5">Ya tengo cuenta</button>
+            </div>
+            <div class="f2-parte2">
+              <label for="nombre">Nombre y Apellido:</label>
+              <input type="text" name="nombre" id="nombre" />
+            </div>
+            <div class="f2-parte2">
+              <label for="email">Email:</label>
+              <input type="email" name="email" id="email" />
+            </div>
+            <div class="f2-parte2">
+              <label for="telefono">Telefono:</label>
+              <input type="number" name="telefono" id="telefono" />
+            </div>
+            <div class="f2-parte2">
+              <label for="contraseña">Contraseña:</label>
+              <input type="password" name="contraseña" id="contraseña" />
+            </div>
+            <div class="f2-parte3">
+              <input type="checkbox" name="checkbox" id="checkbox" required />
+              <p>Acepto terminos y condiciones</p>
+            </div>
+            <div class="f2-parte3">
+              <button type="submit">Registrarse</button>
+            </div>
+          </form>
+
+          <div class="resumen">
+            <div class="r-block">
+              <p class="r-titulo">Resumen de Cita:</p>
+              <div class="r-content">
+                <!-- <p><b>Categoria:</b> Manos</p>
+                <p><b>Servicio:</b> Gel Color</p>
+                <p><b>Dia:</b> 24/04/2023</p>
+                <p><b>Hora:</b> 1:00pm</p> -->
+              </div>
+              <button>Agendar Cita</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer">
+        <div>Politica de privacidad</div>
+        <div>Joaquin Gonzalez</div>
+        <div>© Copyright 2023</div>
+      </div>
+    </footer>
+
+    <script
+      src="https://kit.fontawesome.com/1df2ab9e31.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/usuarios.js" type="module"></script>
+    <script src="../js/citas.js"></script>
+  </body>
+</html>

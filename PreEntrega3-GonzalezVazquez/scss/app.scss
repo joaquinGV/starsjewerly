@@ -1,0 +1,235 @@
+$color-primario: #D9B4BE;
+$color-secundario: #8c2641;
+$color-terciario: antiquewhite;
+$color-4 : #732634;
+
+// Imports colodacos al final por problemas en el orden de lectura
+
+
+*{
+    margin: 0;
+    padding: 0;
+    background-color:$color-primario !important;
+}
+
+
+// Header de todos
+
+header{
+    background-color: $color-primario !important;
+    border: 3px solid black;
+    .navbar{
+        padding: 0 !important;
+        margin-bottom:0 ;
+    }
+    .bg-body-tertiary{
+        --bs-bg-opacity:0;
+        background-color: $color-primario !important;
+    }
+    .navbar-brand{
+        font-style: normal;
+        color: black;
+        font-weight: bold;
+        background-color: transparent;
+        max-height: 100%;
+    }
+}
+
+// Selecciones Navbar
+
+#navbarNav{
+    li {
+        a{
+            color:#666  ;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 1.3em;
+            &:hover{
+                &:not(.active){
+                    background-color: #f2ced8 !important;
+                }
+            }
+            
+        }
+        .active{
+            color: $color-terciario;
+            background-color: $color-secundario !important;
+        }
+    }
+}
+
+// Seccion Portada
+
+.portada{
+    width: 95%;
+    height: 70%;
+    padding: 1%;
+    margin: 2%;
+    margin-bottom: 0;
+    border: 5px antiquewhite solid;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    background-color: $color-primario;
+}
+
+.portada-button{
+    height: 20%;
+    width: 20%;
+    border-radius: 25px ;
+    border: 2px $color-4 solid;
+    background-color: #FAACC4 ;
+    font-size: 25px;
+    font-style: normal;
+    color:black;
+    font-weight: bold;
+    transform: scale(1);
+    transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s;
+    &:hover{
+          
+            background-color: $color-4 !important;
+            color: antiquewhite !important; 
+            border: 2px $color-4 solid;
+            box-shadow: 0 0 20px 0 $color-4;
+            transform: scale(1.1) !important;
+            transition: all 0.4s !important;
+    
+        }
+    }
+
+.f2-parte1,
+.f2-parte3,
+.resumen,
+.galeria .sec-comentarios .commentarios__botones
+{   
+    button{
+        &:hover{
+            background-color: $color-4 !important;
+            color: antiquewhite !important; 
+            border: 2px $color-4 solid;
+            box-shadow: 0 0 20px 0 $color-4;
+            transform: scale(1.1) !important;
+            transition: all 0.4s !important;
+        }
+    }
+}
+
+#carouselExampleAutoplaying{
+    width: 60% ; 
+    height: 100% ;
+    display: inline-flex !important;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+.carousel-control-prev ,
+.carousel-control-next {
+    background-color: transparent !important;
+}
+
+// Seccion Descripcion uñas 
+.descripcion{
+    display: flex;  
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2%;
+    gap: 20px;
+    justify-content:space-evenly;
+    h2{
+    width: 100%;
+    text-align: center;
+    }
+    .descripcion__texto{
+        text-align: center;
+        max-width: 75%;
+        width: 60%;
+        font-size: 20px;
+    }
+    .desc_uñas_up{
+        width: 25%;
+    }
+    
+    .desc_uñas_down{
+        display: none;
+    }
+}
+
+// Seccion Ubicación 
+.ubicacion{
+    width: 95%;
+    height: auto;
+    padding: 1%;
+    padding-bottom: 3%;
+    margin: 2%;
+    margin-bottom: 3%;
+    border: 5px antiquewhite solid;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 15px;
+    overflow: hidden;
+    h2{
+        width: 100%;
+    }
+    
+    .ubicacion__mapa{
+        height:fit-content;
+        margin-inline: 5px;
+    }
+    
+    .mapa{
+        height: 100%;
+    }
+    .ubicacion__datos{
+        height: 25%;
+        font-size: 20px;
+        margin-top: 10px;
+    
+    }
+    .ubicacion__horarios{
+        table,
+        th,
+        td{
+            border: gray 2px solid;
+            font-size: 20px;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+    }
+}
+
+// Footer
+
+footer{
+    background:#732634 !important;
+    padding-top:  60px;
+    padding-bottom: 60px;
+    .footer{
+        width: 100%;
+        justify-content: space-between !important;
+        text-align: center; 
+        background:#732634 !important;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        div{
+            width: 33%;
+            padding: 8px;
+            font-size: 1.6em;
+            color:antiquewhite;
+            background:#732634 !important;
+        }
+    }
+}
+
+@import "servicios";
+@import "cita";
+@import "galeria";
+@import "ofertas";
+@import "responsive";

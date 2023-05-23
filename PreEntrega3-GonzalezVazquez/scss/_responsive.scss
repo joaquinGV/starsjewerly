@@ -1,0 +1,162 @@
+@media (max-width: 575.98px) {
+    .portada{
+        flex-wrap: wrap;
+        height: 50%;
+        gap: 10px;
+        .portada-button{
+            height: auto + 15px;
+            width: 70%;
+        }
+        #carouselExampleAutoplaying{
+            width: 95% !important; 
+            height: 70% !important;
+            display: inline-flex !important;
+        }
+    }
+
+    .descripcion{
+        .desc_uñas_up{
+            display: none;
+        }
+    
+        .desc_uñas_down{
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .descripcion__texto{
+            width: auto;
+        }
+
+    }
+
+    h2{
+        transform: scale(0.8);
+        padding: auto;
+    }
+
+    .ubicacion_mapa {
+        iframe{
+            width: auto;
+            height: auto;
+        }
+    }
+
+    .ubicacion__datos{
+        width: auto;
+        font-size: 20px;
+    }
+    
+    footer{
+        background:#732634 !important;
+        padding-top:  30px;
+        padding-bottom: 30px;
+        .footer{
+            flex-wrap: wrap;
+            div{
+                width: 100%;
+            }
+        }
+    }
+
+
+    .galeria{
+        .sec-comentarios{
+            .card_none{
+                display: none;
+            }
+
+            .commentarios__botones {
+                div{
+                    justify-content: center;
+                }
+            }
+
+            .comentarios_area{
+                justify-content:center;
+                margin: 0 !important;
+            
+            } 
+
+            .commentarios__botones{
+                width: 100%;
+                padding: 0;
+                display: block !important;
+                align-items: center !important;
+            }
+        }
+    }
+    
+    .uñas{
+        .uñas__header{
+            padding: 0;
+            font-size: 2em;
+            margin: 5px;   
+            h2{
+                font-size: 1.5em;
+            }
+        }
+        
+        .uñas__contenido__imagen{
+            width: 100%;
+            height: auto;
+            img{
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+    
+    .cita-main {
+        section{
+            padding:15px 5px 15px 5px;
+            margin: 2%;
+            gap:15px;
+        }
+        .formulario-2 {
+            .f2-parte2 {
+                margin:auto;
+                input{
+                    width: 90%;
+                }   
+            }
+        }
+        .resumen {
+            .r-block{
+                margin: 25px 12% 0 12%;
+            }
+        }
+    }
+
+    .f2-parte2{
+        margin:auto;
+    }
+
+    .formulario-2 {
+        .f2-parte2 {
+            input{
+                width: 90%;
+            }
+        }
+    }
+
+
+    #grid__main{
+        height: auto;
+        width: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: 
+        "amigas"
+        "mes"
+        "temporada"
+        "contacto"
+        "oferta__img";
+        padding: 25px;
+        gap:25px;
+        h2{
+            font-size: 1.3em;
+        }
+    }
+ }
