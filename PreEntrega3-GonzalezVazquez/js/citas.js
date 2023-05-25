@@ -97,6 +97,7 @@ function MostrarServicios(categoria = "Manos") {
       `;
     }
   }
+  actualizarServicio();
 }
 
 // Funcion para mostrar horarios disponibles dependiendo la fecha seleccionada en html
@@ -126,7 +127,6 @@ function mostrarHorarios() {
                        `;
   }
 }
-MostrarServicios();
 
 //---- Actualizar valores de la seccion "Resumen Cita" --- //
 let categoriaResumen = "Manos",
@@ -142,9 +142,7 @@ function actualizarResumen() {
   console.log(resumen.innerHTML);
   resumen.innerHTML = `
         <p><b>Categoria:</b> ${categoriaResumen}</p>
-        <p><b>Servicio:</b> ${
-          servicioResumen != true ? "" : servicioResumen
-        }</p>
+        <p><b>Servicio:</b> ${servicioResumen ? servicioResumen : ""}</p>
         <p><b>Dia:</b> ${diaResumen}</p>
         <p><b>Hora:</b> ${horaResumen}</p>
       `;
@@ -170,13 +168,16 @@ radioButtons.forEach((radioButton) => {
 
 // --------- Obtener valores de dropdown seccion "Servicio" ----------//
 // Definir dropdown, su ubicacion y el change event
-const dropdown = document.getElementById("servicio");
+// Dentro de una funcion por que los servicios se actualizan dependiendo la categoria
+function actualizarServicio() {
+  const dropdown = document.getElementById("servicio");
 
-dropdown.addEventListener("change", () => {
-  const valorSeleccionado = dropdown.value;
-  console.log("Servicio seleccionado: " + valorSeleccionado);
-  servicioResumen = valorSeleccionado;
-});
+  dropdown.addEventListener("change", () => {
+    const valorSeleccionado = dropdown.value;
+    console.log("Servicio seleccionado: " + valorSeleccionado);
+    servicioResumen = valorSeleccionado;
+  });
+}
 
 // --------- Obtener valor de fecha y actualizarlo, seccion "fecha" ------
 //Obtener valor de fecha actualizado cada que cambie
@@ -245,3 +246,6 @@ function horasDisponibles(date) {
     return horas2;
   }
 }
+
+// Funciones que se ejecutan al cargar la aplicacion
+MostrarServicios();
