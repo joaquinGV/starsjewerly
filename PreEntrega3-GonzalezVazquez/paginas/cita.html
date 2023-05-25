@@ -19,6 +19,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.5/sweetalert2.min.css"
+      integrity="sha512-InYSgxgTnnt8BG3Yy0GcpSnorz5gxHvT6OEoRWj91Gg+RvNdCiAharnBe+XFIDS754Kd9TekdjXw3V7TAgh6Vw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>YN Agendar Cita</title>
   </head>
   <body>
@@ -142,7 +149,7 @@
                 type="date"
                 id="fecha"
                 name="fecha"
-                value="2023-01-28"
+                value="2023-05-22"
                 required
               />
             </div>
@@ -242,7 +249,9 @@
           <form action="" class="formulario-2">
             <div class="f2-parte1 row">
               <h3 class="col-10 col-md-6">Cliente Nuevo</h3>
-              <button class="col-10 col-md-5">Ya tengo cuenta</button>
+              <button id="iniciarSesion" class="col-10 col-md-5">
+                Ya tengo cuenta
+              </button>
             </div>
             <div class="f2-parte2">
               <label for="nombre">Nombre y Apellido:</label>
@@ -292,6 +301,8 @@
         <div>© Copyright 2023</div>
       </div>
     </footer>
+
+    <script src="../js/sweetalert2.min.js"></script>
 
     <script
       src="https://kit.fontawesome.com/1df2ab9e31.js"

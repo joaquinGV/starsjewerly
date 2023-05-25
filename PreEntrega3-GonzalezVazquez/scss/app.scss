@@ -9,22 +9,22 @@ $color-4 : #732634;
 *{
     margin: 0;
     padding: 0;
-    background-color:$color-primario !important;
+    // background-color:$color-primario ;
 }
 
 
 // Header de todos
 
 header{
-    background-color: $color-primario !important;
+    background-color: $color-primario;
     border: 3px solid black;
     .navbar{
-        padding: 0 !important;
+        padding: 0 ;
         margin-bottom:0 ;
     }
     .bg-body-tertiary{
         --bs-bg-opacity:0;
-        background-color: $color-primario !important;
+        background-color: $color-primario ;
     }
     .navbar-brand{
         font-style: normal;

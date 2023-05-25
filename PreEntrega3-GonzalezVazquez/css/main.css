@@ -1,18 +1,17 @@
 @charset "UTF-8";
 * {
   margin: 0;
-  padding: 0;
-  background-color: #D9B4BE !important; }
+  padding: 0; }
 
 header {
-  background-color: #D9B4BE !important;
+  background-color: #D9B4BE;
   border: 3px solid black; }
   header .navbar {
-    padding: 0 !important;
+    padding: 0;
     margin-bottom: 0; }
   header .bg-body-tertiary {
     --bs-bg-opacity:0;
-    background-color: #D9B4BE !important; }
+    background-color: #D9B4BE; }
   header .navbar-brand {
     font-style: normal;
     color: black;
