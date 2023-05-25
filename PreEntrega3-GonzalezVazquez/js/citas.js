@@ -18,7 +18,7 @@ users = [
 ];
 
 //variable de horas para mostrar como opciones html
-let horas = [
+const horas = [
   { hora: "8:00 am", val: 8 },
   { hora: "9:00 am", val: 9 },
   { hora: "10:00 am", val: 10 },
@@ -75,14 +75,39 @@ let citas = [
   },
 ];
 
-// Funcion para mostrar horarios disponibles dependiendo la fecha seleccionada
+// Actualizar servicios mostrados en html
+function MostrarServicios(categoria = "Manos") {
+  const servicios = document.getElementById("servicio");
+  console.log(categoria === "Manos" || "Pies");
+  servicios.innerHTML = `<option value="" disabled selected hidden> Seleccionar Servicio </option>`; ///Defino Titulo de la seccion
+  if (categoria !== "Oferta") {
+    for (let i = 0; i < serviciosManos.length; i++) {
+      servicios.innerHTML =
+        servicios.innerHTML +
+        `
+      <option value="${serviciosManos[i]}">${serviciosManos[i]}</option>
+      `;
+    }
+  } else {
+    for (let i = 0; i < serviciosOferta.length; i++) {
+      servicios.innerHTML =
+        servicios.innerHTML +
+        `
+      <option value="${serviciosOferta[i]}">${serviciosOferta[i]}</option>
+      `;
+    }
+  }
+}
+
+// Funcion para mostrar horarios disponibles dependiendo la fecha seleccionada en html
 function mostrarHorarios() {
   const horarios = document.getElementById("horarios-disponibles"); // Buscar el elemento a trabajar "horarios-disponibles"
   horarios.innerHTML = `<h3 for="horario">Selecciona un horario:</h3>`; ///Defino Titulo de la seccion
+  const horasDis = horasDisponibles(fechaAct);
   console.log(fechaAct);
   console.log(citas[0].fecha);
 
-  for (let i = 0; i < horas.length; i++) {
+  for (let i = 0; i < horasDis.length; i++) {
     ///por cada uno de los horarios disponilbes, genero un boton desplegandolo
     horarios.innerHTML =
       horarios.innerHTML +
@@ -91,29 +116,35 @@ function mostrarHorarios() {
                             <input
                                 type="radio"
                                 name="Horarios"
-                                value="${horas[i].val}"
-
+                                value="${horasDis[i].val}"
+                                ${i == 0 ? "checked" : ""}
                             />
-                            <label for="${horas[i].hora}">${horas[i].hora}</label>
+                            <label for="${horasDis[i].hora}">${
+        horasDis[i].hora
+      }</label>
                         </div>
                        `;
   }
 }
+MostrarServicios();
 
-//Actualizar valores de la seccion "Resumen Cita"
+//---- Actualizar valores de la seccion "Resumen Cita" --- //
 let categoriaResumen = "Manos",
   servicioResumen,
   diaResumen,
-  horaResumen;
+  horaResumen,
+  options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
 function actualizarResumen() {
   const resumen = document.querySelector(".r-block .r-content");
   resumen.innerHTML = ``;
-  diaResumen = fechaAct;
+  diaResumen = fechaAct.toLocaleDateString("es-ES", options);
   horaResumen = formatAMPM(fechaAct);
   console.log(resumen.innerHTML);
   resumen.innerHTML = `
         <p><b>Categoria:</b> ${categoriaResumen}</p>
-        <p><b>Servicio:</b> ${servicioResumen}</p>
+        <p><b>Servicio:</b> ${
+          servicioResumen != true ? "" : servicioResumen
+        }</p>
         <p><b>Dia:</b> ${diaResumen}</p>
         <p><b>Hora:</b> ${horaResumen}</p>
       `;
@@ -125,7 +156,7 @@ const radioButtons = document.querySelectorAll(
   '.cat1__categoria input[name="categoria"]'
 );
 
-// Asignar el evento "change" a cada radio button y asignar valor a variable
+// Obtener valores de "Categoria" y asignar valor a variable
 radioButtons.forEach((radioButton) => {
   radioButton.addEventListener("change", () => {
     const valorSeleccionado = document.querySelector(
@@ -133,6 +164,7 @@ radioButtons.forEach((radioButton) => {
     ).value;
     console.log("Categoria seleccionada: " + valorSeleccionado);
     categoriaResumen = valorSeleccionado;
+    MostrarServicios(categoriaResumen);
   });
 });
 
@@ -191,3 +223,25 @@ horaButtons.forEach((hButton) => {
     actualizarResumen();
   });
 });
+
+// ----------  Borrar horarios apartados en citas --------- //
+function horasDisponibles(date) {
+  let horas2 = [...horas];
+  const resultado = citas.filter(
+    //Buscamos fechas de citas coincidentes a fecha seleccionada
+    (day) => day.fecha.toDateString() == date.toDateString()
+  );
+  if (resultado) {
+    // Si el resultado es positivo, removemos los horarios que tengan fechas existentes
+    for (let i = 0; i < resultado.length; i++) {
+      let index = horas2.findIndex(
+        (el) => el.val == resultado[i].fecha.getHours()
+      );
+      if (index != 1) {
+        horas2.splice(index, 1);
+      }
+    }
+    // console.log(horas2);
+    return horas2;
+  }
+}

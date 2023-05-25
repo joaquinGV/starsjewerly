@@ -66,6 +66,7 @@ header {
     transform: scale(1.1) !important;
     transition: all 0.4s !important; }
 
+#r-citas button:hover,
 .f2-parte1 button:hover,
 .f2-parte3 button:hover,
 .resumen button:hover,
@@ -329,6 +330,17 @@ footer {
     font-weight: bold;
     font-size: 1.2em;
     transform: scale(1);
+    transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s; }
+
+#r-citas {
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  padding: 5px; }
+  #r-citas button {
+    padding: 20px;
+    font-weight: bold;
+    transform: scale(1.1);
     transition: transform 0.4s, background 0.5s, box-shadow 2s, color 0.4s; }
 
 .galeria h2 {
