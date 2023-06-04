@@ -1,0 +1,16 @@
+[
+  {
+    "nombre": "Joaquin Gonzalez",
+    "correo": "joaquincoder@gmail.com",
+    "telefono": 9612300000,
+    "contraseña": "coderhouse"
+  },
+  {
+    "nombre": "Cynthia Ramirez",
+    "correo": "cynthiacoder@gmail.com",
+    "telefono": 123456789,
+    "contraseña": "cynthia"
+  }
+]
+
+

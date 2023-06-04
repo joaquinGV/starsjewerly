@@ -2,20 +2,6 @@
 
 // Definicion de todas las variables utilizadas, usuarios, horas, servicios y citas agendadas
 // lista de usuarios que han creado su perfil
-users = [
-  {
-    nombre: "Joaquin Gonzalez",
-    correo: "joaquincoder@gmail.com",
-    telefono: 9612300000,
-    contraseña: "coderhouse",
-  },
-  {
-    nombre: "Cynthia Ramirez",
-    correo: "cynthiacoder@gmail.com",
-    telefono: 123456789,
-    contraseña: "cynthia",
-  },
-];
 
 //variable de horas para mostrar como opciones html
 const horas = [
@@ -53,27 +39,30 @@ let citas = [
     fecha: new Date(2023, 4, 22, 8),
     categoria: "Manos",
     servicio: "Manicure Express",
-    cliente: users[0],
+    cliente: "Joaquin Gonzalez",
   },
   {
     fecha: new Date(2023, 4, 22, 12),
     categoria: "Pies",
     servicio: "Manicure Express",
-    cliente: users[1],
+    cliente: "Cynthia Ramirez",
   },
   {
     fecha: new Date(2023, 4, 22, 16),
     categoria: "Oferta",
     servicio: "Promo Amigas",
-    cliente: users[0],
+    cliente: "Joaquin Gonzalez",
   },
   {
     fecha: new Date(2023, 4, 23, 10),
     categoria: "Manos",
     servicio: "Manicure Express",
-    cliente: users[1],
+    cliente: "Cynthia Ramirez",
   },
 ];
+
+// localStorage.setItem("usuario", "joa@hotmail.com");
+// localStorage.setItem("password", "");
 
 // Actualizar servicios mostrados en html
 function MostrarServicios(categoria = "Manos") {
@@ -190,7 +179,7 @@ fecha.onchange = () => {
   mostrarHorarios();
 };
 
-//Actualizar fecha
+//Actualizar fecha a horario local
 function actualizarFecha() {
   let fecha2 = new Date(fecha.value);
   fecha2.setMinutes(fecha2.getMinutes() + fecha2.getTimezoneOffset());
@@ -252,24 +241,64 @@ MostrarServicios();
 
 const botonInicio = document.getElementById("iniciarSesion");
 
-let nombreUsuario = null;
-let pass = null;
+let nombreUsuario = localStorage.getItem("user") || null;
+let pass = localStorage.getItem("password") || null;
+let usersList;
+let Usuario, UsuarioCorreo;
+
+///lectura de datos de un archivo local
+///uso una ruta relativa
+const pedirUsers = async () => {
+  const resp = await fetch("../js/users.json");
+
+  const data = await resp.json();
+  usersList = data;
+  console.log(usersList);
+};
+pedirUsers();
+
+console.log(usersList);
 
 botonInicio.onclick = () => {
   Swal.fire({
     title: "Login",
     text: "Ingrese su mail de login",
     input: "email",
-    inputPlaceholder: "Pepe@pepe.com",
+    inputPlaceholder: "correo@gmail.com",
     confirmButtonText: "Enviar",
     showCancelButton: true,
     cancelButtonText: "Cancelar",
+    showLoaderOnConfirm: true,
+    preConfirm: (login) => {
+      // Lee lista de usuarios y compara si existe correo con la lista de usuarios, si no levanta un error
+      // Si el usuario existe guardamos los datos de dicho usuario para compararlos en contraseña
+      Usuario = null;
+      return fetch("../js/users.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+          for (let i = 0; i < usersList.length; i++) {
+            const element = usersList[i];
+            if (login == element.correo) {
+              Usuario = element;
+              return response.json;
+            }
+          }
+          if (!Usuario) {
+            throw new Error("Correo no encontrado");
+          }
+        })
+        .catch((error) => {
+          Swal.showValidationMessage(`Request failed: ${error}`);
+        });
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
   }).then((resultado) => {
     ///una vez que el usuario ingreso el valro en el prompt y apreto algun boton
     console.log(resultado);
     if (resultado.isConfirmed) {
-      //apreto el boton enviar?
-      nombreUsuario = resultado.value; ///me llevo el valor del input
+      console.log(Usuario);
       Swal.fire({
         title: "Password",
         text: "Ingrese su password",
@@ -280,16 +309,20 @@ botonInicio.onclick = () => {
       }).then((resultado) => {
         if (resultado.isConfirmed) {
           pass = resultado.value;
-          if (pass === "") {
-            ///si el password esta vacio
-            Swal.fire({
-              title: "El pass es invalido",
-              icon: "error",
-            });
-          } else {
+          console.log(pass);
+          if (pass === Usuario.contraseña) {
+            // Si existe, creamos user con datos del Usuario en localStorage
             Swal.fire({
               title: "Ingreso de usuario Exitoso!",
               icon: "success",
+            });
+            localStorage.setItem("user", JSON.stringify(Usuario));
+            clienteActivo();
+          } else {
+            Swal.fire({
+              title: "Contraseña Incorrecta",
+              icon: "error",
+              timer: 1000,
             });
           }
         }
@@ -297,3 +330,68 @@ botonInicio.onclick = () => {
     }
   });
 };
+
+function clienteActivo() {
+  const formularioCliente = document.getElementById("f22");
+  const usuario = JSON.parse(localStorage.getItem("user"));
+  formularioCliente.innerHTML =
+    // formularioCliente.innerHTML +
+    `
+    <div class="f2-parte1 row">
+      <h3 class="col-10 col-md-6">Cliente Viejo</h3>
+      <button id="cerrarSesion" class="col-10 col-md-5">Cerrar Sesion</button>
+    </div> 
+    <div class="f2-parte2">
+      <label for="nombre">Nombre y Apellido:</label>
+      <input type="text" name="nombre" id="nombre" value="${usuario.nombre}" readonly />
+    </div>
+    <div class="f2-parte2">
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" value="${usuario.correo}" readonly />
+    </div>
+    <div class="f2-parte2">
+      <label for="telefono">Telefono:</label>
+      <input type="number" name="telefono" id="telefono" value="${usuario.telefono}" readonly />
+    </div>
+            `;
+}
+
+function clienteNuevo() {
+  const formularioCliente = document.getElementById("f22");
+  // const usuario = JSON.parse(localStorage.getItem("user"));
+  formularioCliente.innerHTML = `
+    <div class="f2-parte1 row">
+              <h3 class="col-10 col-md-6">Cliente Nuevo</h3>
+              <button id="iniciarSesion" class="col-10 col-md-5">
+                Ya tengo cuenta
+              </button>
+            </div>
+            <div class="f2-parte2">
+              <label for="nombre">Nombre y Apellido:</label>
+              <input type="text" name="nombre" id="nombre" />
+            </div>
+            <div class="f2-parte2">
+              <label for="email">Email:</label>
+              <input type="email" name="email" id="email" />
+            </div>
+            <div class="f2-parte2">
+              <label for="telefono">Telefono:</label>
+              <input type="number" name="telefono" id="telefono" />
+            </div>
+            <div class="f2-parte2">
+              <label for="contraseña">Contraseña:</label>
+              <input type="password" name="contraseña" id="contraseña" />
+            </div>
+            <div class="f2-parte3">
+              <input type="checkbox" name="checkbox" id="checkbox" required />
+              <p>Acepto terminos y condiciones</p>
+            </div>
+            <div class="f2-parte3">
+              <button type="submit">Registrarse</button>
+            </div>
+            `;
+}
+
+const localuser = JSON.parse(localStorage.getItem("user"));
+
+localuser ? clienteActivo() : clienteNuevo;
