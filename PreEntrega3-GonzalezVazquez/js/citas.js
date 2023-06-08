@@ -40,24 +40,28 @@ let citas = [
     categoria: "Manos",
     servicio: "Manicure Express",
     cliente: "Joaquin Gonzalez",
+    correo: "joaquincoder@gmail.com",
   },
   {
     fecha: new Date(2023, 4, 22, 12),
     categoria: "Pies",
     servicio: "Manicure Express",
     cliente: "Cynthia Ramirez",
+    correo: "cynthiacoder@gmail.com",
   },
   {
     fecha: new Date(2023, 4, 22, 16),
     categoria: "Oferta",
     servicio: "Promo Amigas",
     cliente: "Joaquin Gonzalez",
+    correo: "joaquincoder@gmail.com",
   },
   {
     fecha: new Date(2023, 4, 23, 10),
     categoria: "Manos",
     servicio: "Manicure Express",
     cliente: "Cynthia Ramirez",
+    correo: "cynthiacoder@gmail.com",
   },
 ];
 
@@ -239,10 +243,6 @@ function horasDisponibles(date) {
 // Funciones que se ejecutan al cargar la aplicacion
 MostrarServicios();
 
-const botonInicio = document.getElementById("iniciarSesion");
-
-let nombreUsuario = localStorage.getItem("user") || null;
-let pass = localStorage.getItem("password") || null;
 let usersList;
 let Usuario, UsuarioCorreo;
 
@@ -250,87 +250,89 @@ let Usuario, UsuarioCorreo;
 ///uso una ruta relativa
 const pedirUsers = async () => {
   const resp = await fetch("../js/users.json");
-
   const data = await resp.json();
   usersList = data;
-  console.log(usersList);
+  return data;
 };
-pedirUsers();
 
-console.log(usersList);
-
-botonInicio.onclick = () => {
-  Swal.fire({
-    title: "Login",
-    text: "Ingrese su mail de login",
-    input: "email",
-    inputPlaceholder: "correo@gmail.com",
-    confirmButtonText: "Enviar",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    showLoaderOnConfirm: true,
-    preConfirm: (login) => {
-      // Lee lista de usuarios y compara si existe correo con la lista de usuarios, si no levanta un error
-      // Si el usuario existe guardamos los datos de dicho usuario para compararlos en contraseña
-      Usuario = null;
-      return fetch("../js/users.json")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-          for (let i = 0; i < usersList.length; i++) {
-            const element = usersList[i];
-            if (login == element.correo) {
-              Usuario = element;
-              return response.json;
+function AgregarEventListenerYaTengoCuenta() {
+  const botonInicio = document.getElementById("iniciarSesion");
+  botonInicio.addEventListener("click", (event) => {
+    pedirUsers();
+    Swal.fire({
+      title: "Login",
+      text: "Ingrese su mail de login",
+      input: "email",
+      inputPlaceholder: "correo@gmail.com",
+      confirmButtonText: "Enviar",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        // Lee lista de usuarios y compara si existe correo con la lista de usuarios, si no levanta un error
+        // Si el usuario existe guardamos los datos de dicho usuario para compararlos en contraseña
+        Usuario = null;
+        return fetch("../js/users.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            for (let i = 0; i < usersList.length; i++) {
+              const element = usersList[i];
+              if (login == element.correo) {
+                Usuario = element;
+                return response.json;
+              }
+            }
+            if (!Usuario) {
+              throw new Error("Correo no encontrado");
+            }
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((resultado) => {
+      ///una vez que el usuario ingreso el valro en el prompt y apreto algun boton
+      console.log(resultado);
+      if (resultado.isConfirmed) {
+        // console.log(Usuario);
+        Swal.fire({
+          title: "Password",
+          text: "Ingrese su password",
+          input: "password",
+          confirmButtonText: "Enviar",
+          showCancelButton: true,
+          cancelButtonText: "Me arrepenti",
+        }).then((resultado) => {
+          if (resultado.isConfirmed) {
+            let pass = resultado.value;
+            console.log(pass);
+            if (pass === Usuario.contraseña) {
+              // Si existe, creamos user con datos del Usuario en localStorage
+              Swal.fire({
+                title: "Ingreso de usuario Exitoso!",
+                icon: "success",
+              });
+              localStorage.setItem("user", JSON.stringify(Usuario));
+              clienteActivo();
+            } else {
+              Swal.fire({
+                title: "Contraseña Incorrecta",
+                icon: "error",
+                timer: 1000,
+              });
             }
           }
-          if (!Usuario) {
-            throw new Error("Correo no encontrado");
-          }
-        })
-        .catch((error) => {
-          Swal.showValidationMessage(`Request failed: ${error}`);
         });
-    },
-    allowOutsideClick: () => !Swal.isLoading(),
-  }).then((resultado) => {
-    ///una vez que el usuario ingreso el valro en el prompt y apreto algun boton
-    console.log(resultado);
-    if (resultado.isConfirmed) {
-      console.log(Usuario);
-      Swal.fire({
-        title: "Password",
-        text: "Ingrese su password",
-        input: "password",
-        confirmButtonText: "Enviar",
-        showCancelButton: true,
-        cancelButtonText: "Me arrepenti",
-      }).then((resultado) => {
-        if (resultado.isConfirmed) {
-          pass = resultado.value;
-          console.log(pass);
-          if (pass === Usuario.contraseña) {
-            // Si existe, creamos user con datos del Usuario en localStorage
-            Swal.fire({
-              title: "Ingreso de usuario Exitoso!",
-              icon: "success",
-            });
-            localStorage.setItem("user", JSON.stringify(Usuario));
-            clienteActivo();
-          } else {
-            Swal.fire({
-              title: "Contraseña Incorrecta",
-              icon: "error",
-              timer: 1000,
-            });
-          }
-        }
-      });
-    }
+      }
+    });
+    event.preventDefault();
   });
-};
+}
 
+// ---- Cuando hay datos del cliente cambiar la interfaz con sus datos -- //
 function clienteActivo() {
   const formularioCliente = document.getElementById("f22");
   const usuario = JSON.parse(localStorage.getItem("user"));
@@ -338,8 +340,8 @@ function clienteActivo() {
     // formularioCliente.innerHTML +
     `
     <div class="f2-parte1 row">
-      <h3 class="col-10 col-md-6">Cliente Viejo</h3>
-      <button id="cerrarSesion" class="col-10 col-md-5">Cerrar Sesion</button>
+      <h3 class="col-10 col-md-6">Bienvenido </h3>
+      <button id="cerrarSesion" class="col-10 col-md-5" type="button">Cerrar Sesion</button>
     </div> 
     <div class="f2-parte2">
       <label for="nombre">Nombre y Apellido:</label>
@@ -354,15 +356,19 @@ function clienteActivo() {
       <input type="number" name="telefono" id="telefono" value="${usuario.telefono}" readonly />
     </div>
             `;
+  localuser = usuario;
+  AgregarEventListenerCerrarSesion();
 }
 
+// -- Cuando variable user no tiene datos mostrar formulario -- //
 function clienteNuevo() {
+  localuser = null;
   const formularioCliente = document.getElementById("f22");
   // const usuario = JSON.parse(localStorage.getItem("user"));
   formularioCliente.innerHTML = `
-    <div class="f2-parte1 row">
+            <div class="f2-parte1 row">
               <h3 class="col-10 col-md-6">Cliente Nuevo</h3>
-              <button id="iniciarSesion" class="col-10 col-md-5">
+              <button id="iniciarSesion" class="col-10 col-md-5" type="button">
                 Ya tengo cuenta
               </button>
             </div>
@@ -390,8 +396,126 @@ function clienteNuevo() {
               <button type="submit">Registrarse</button>
             </div>
             `;
+
+  AgregarEventListenerYaTengoCuenta();
+  AgregarEventListenerRegistrarse();
 }
 
-const localuser = JSON.parse(localStorage.getItem("user"));
+let localuser = JSON.parse(localStorage.getItem("user"));
+localuser ? clienteActivo() : clienteNuevo();
 
-localuser ? clienteActivo() : clienteNuevo;
+function AgregarEventListenerCerrarSesion() {
+  const botonCerrar = document.getElementById("cerrarSesion");
+
+  botonCerrar.addEventListener("click", () => {
+    // localStorage.removeItem("user"); // Error, no termina de cargar swal fire y la pagina reinicia
+    Swal.fire({
+      title: "Desea cerrar sesion?",
+      showCancelButton: true,
+      confirmButtonText: "Cerrar Sesion",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire("Sesion cerrada!");
+        // localStorage.clear();
+        localStorage.removeItem("user");
+        clienteNuevo();
+      }
+    });
+  });
+}
+
+//  -- Boton para revisar citas -- //
+// Verifica si el usuario esta logeado y le muestra sus citas futuras en caso de tener.
+
+const botonRevisarCitas = document.querySelector("#boton-citas");
+
+botonRevisarCitas.addEventListener("click", () => {
+  if (!localuser) {
+    Swal.fire({
+      icon: "error",
+      title: "No has iniciado Sesion",
+      text: "Inicia sesion para ver tus citas",
+      footer: 'Has click en "Ya tengo cuenta" para iniciar sesion',
+    });
+  } else {
+    mostrarCitas();
+    Swal.fire({
+      title: `Citas de ${localuser.nombre}`,
+      html: mostrarCitas(),
+    });
+  }
+});
+
+const mostrarCitas = () => {
+  const citasCliente = citas.filter(
+    (objeto) => objeto.correo === localuser?.correo
+  );
+  console.log(citasCliente);
+  return citasCliente.length
+    ? generateTable(citasCliente)
+    : `<h4>No has agendado ninguna cita.</h4>`;
+};
+
+// Build table HTML
+const generateTable = (cita) => {
+  console.log(cita);
+  const tableHtml = `
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Servicio</th>
+        <th scope="col-3">Categoria</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${cita
+        .map(
+          (obj) => `
+            <tr class="table-light">
+              <td>${obj.fecha.toLocaleDateString("es-ES", options)}</td>
+              <td>${formatAMPM(obj.fecha)}</td>
+              <td>${obj.servicio}</td>
+              <td>${obj.categoria}</td>
+            </tr>
+          `
+        )
+        .join("")}
+    </tbody>
+  </table>
+`;
+  console.log(tableHtml);
+  return tableHtml;
+};
+
+// -- Utilizar boton Registrarse e iniciar sesion con datos ingresados -- //
+// Obtener datos de la forma 2 "Cliente Nuevo"
+
+function AgregarEventListenerRegistrarse() {
+  const formularioRegistro = document.getElementById("f22");
+  formularioRegistro.addEventListener("submit", validarFormulario);
+
+  function validarFormulario(e) {
+    e.preventDefault();
+    const nombre = formularioRegistro.nombre.value;
+    const correo = formularioRegistro.email.value;
+    const telefono = formularioRegistro.telefono.value;
+    const contraseña = formularioRegistro.contraseña.value;
+
+    pedirUsers().then((usersList) => {
+      for (let i = 0; i < usersList.length; i++) {
+        const element = usersList[i];
+        if (correo === element.correo) {
+          console.log("El correo existe");
+        }
+      }
+    });
+
+    console.log("Nombre:", nombre);
+    console.log("Correo:", correo);
+
+    console.log("Formulario Enviado");
+  }
+}

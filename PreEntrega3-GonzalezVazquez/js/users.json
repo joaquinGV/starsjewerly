@@ -10,7 +10,11 @@
     "correo": "cynthiacoder@gmail.com",
     "telefono": 123456789,
     "contraseña": "cynthia"
+  },
+  {
+    "nombre": "Admin",
+    "correo": "admin@mail.com",
+    "telefono": 123456789,
+    "contraseña": "admin"
   }
 ]
-
-
