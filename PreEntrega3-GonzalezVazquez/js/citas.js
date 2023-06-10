@@ -495,27 +495,58 @@ const generateTable = (cita) => {
 
 function AgregarEventListenerRegistrarse() {
   const formularioRegistro = document.getElementById("f22");
-  formularioRegistro.addEventListener("submit", validarFormulario);
-
-  function validarFormulario(e) {
+  formularioRegistro.addEventListener("submit", async function (e) {
     e.preventDefault();
     const nombre = formularioRegistro.nombre.value;
     const correo = formularioRegistro.email.value;
     const telefono = formularioRegistro.telefono.value;
     const contraseña = formularioRegistro.contraseña.value;
 
-    pedirUsers().then((usersList) => {
+    try {
+      if (!nombre || !correo || !telefono || !contraseña) {
+        throw new Error("Registra los campos correctamente");
+      }
+      // Continuar con el código después de que validarFormulario() haya terminado correctamente
+      await validarFormulario(correo, telefono);
+      console.log(nombre, correo, telefono, contraseña);
+      const nuevoUser = {
+        nombre: nombre,
+        correo: correo,
+        telefono: telefono,
+        contraseña: contraseña,
+      };
+      guardarUserEnLocal(nuevoUser);
+    } catch (error) {
+      // Manejar el error de validarFormulario()
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un problema",
+        text: error,
+      });
+    }
+  });
+
+  async function validarFormulario(correo, telefono) {
+    try {
+      const usersList = await pedirUsers();
       for (let i = 0; i < usersList.length; i++) {
         const element = usersList[i];
         if (correo === element.correo) {
-          console.log("El correo existe");
+          throw new Error("El correo ya existe, registra uno nuevo");
+        }
+        if (telefono == element.telefono) {
+          throw new Error("El telefono ya está registrado, registra uno nuevo");
         }
       }
-    });
-
-    console.log("Nombre:", nombre);
-    console.log("Correo:", correo);
-
-    console.log("Formulario Enviado");
+      console.log("Formulario Enviado");
+    } catch (error) {
+      throw error;
+    }
   }
+}
+
+function guardarUserEnLocal(datos) {
+  const userJSON = JSON.stringify(datos);
+  localStorage.setItem("user", userJSON);
+  clienteActivo();
 }

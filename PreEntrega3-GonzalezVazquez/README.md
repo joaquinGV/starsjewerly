@@ -18,8 +18,14 @@ Cliente Nuevo:
   - Si el correo existe, solicita la contraseña y si coincide inicia sesion
     - Guarda el usuario en localhost y si dicho dato existe la pagina cambia, y rellena los datos de la interfaz.
   - Al cerrar sesion, se borran datos del local host y actualiza la pagina tras la confirmacion.
+- Se puede crear usuario si el correo y telefono no coinciden con algun usuario existente, y se guarda temporalmente en local host (aun no se pueden al archivo user.json)
 
 Los usuarios se encuentran en /users.json y de ahi se obtienen.
 Las citas es un array de objetos
 
-En trabajo: - Capturar datos de del formulario "Cliente Nuevo" y guardar los datos en users.json si el correo no existe previamente. - Capturar todos los datos de los formularios y validarlos al hacer click en "Agendar Cita". - Crear cita nueva y que se vea reflejada al intentar agendar mismo dia/horario - Crear pagina basica con una tabla que muestre dependiendo el dia todas las citas de ese dia.
+En trabajo:
+
+- Guardar datos del formulario "Cliente Nuevo" en users.json
+- Capturar todos los datos de los formularios y validarlos al hacer click en "Agendar Cita".
+- Crear cita nueva y que se vea reflejada al intentar agendar mismo dia/horario
+- Crear pagina basica con una tabla que muestre dependiendo el dia todas las citas de ese dia.
